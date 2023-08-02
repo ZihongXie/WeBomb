@@ -1,59 +1,44 @@
 #include <stdio.h>
 #include <windows.h>
 
-void BombStart() {
-    keybd_event(VK_CONTROL, 0, 0, 0);
-    keybd_event('V', 0, 0, 0);
-
-    keybd_event('V', 0, KEYEVENTF_KEYUP, 0);
-    keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
-
-    Sleep(100);//µÈ´ý0.05Ãë
-
-    //»Ø³µ·¢ËÍ
-    keybd_event(VK_RETURN, 0, 0, 0);
-    keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
-
-    Sleep(100);//µÈ´ý0.05Ãë
-}
-
 int main() {
+    //åˆå§‹åŒ–å˜é‡
     int MesageNum = 0;
     int num = 0;
 
-    //Ñ°ÕÒ´°¿Ú
-    HWND WechatWindows = FindWindow(L"WeChatMainWndForPC", L"Î¢ÐÅ");
+    //å¯»æ‰¾çª—å£
+    HWND WechatWindows = FindWindow(L"WeChatMainWndForPC", L"å¾®ä¿¡");
 
-    //ÌáÊ¾´°¿ÚÊÇ·ñÕÒµ½
+    //æç¤ºçª—å£æ˜¯å¦æ‰¾åˆ°
     if (WechatWindows == NULL) {
-        printf("Î´ÕÒµ½Î¢ÐÅ´°¿Ú£¬ÇëÈ·±£Î¢ÐÅÒÑ´ò¿ª¡£\n");
+        printf("æœªæ‰¾åˆ°å¾®ä¿¡çª—å£ï¼Œè¯·ç¡®ä¿å¾®ä¿¡å·²æ‰“å¼€ã€‚\n");
         return 1;
     }
 
-    //ÖÃ¶¥´°¿Ú
+    //ç½®é¡¶çª—å£
     SetWindowPos(WechatWindows, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
-    //»ñÈ¡´°¿ÚÎ»ÖÃ
+    //èŽ·å–çª—å£ä½ç½®
     RECT RectWechat;
     GetWindowRect(WechatWindows, &RectWechat);
 
-    //ÔÚcmdÀïÉèÖÃÏûÏ¢ÊýÁ¿
-    printf("ÇëÊäÈëË¢ÆÁÏûÏ¢ÊýÁ¿£¬ÌîÐ´-1´ú±íÎÞÏÞÑ­»·\n");
-    printf("×¢Òâ£¬ÇëÏÈ½«Î¢ÐÅ´°¿Úµ÷³öÀ´ÔÙ½«Æä´°¿Ú×îÐ¡»¯ÔÙÊ¹ÓÃ\n");
+    //åœ¨æŽ§åˆ¶å°é‡Œè®¾ç½®æ¶ˆæ¯æ•°é‡
+    printf("è¯·è¾“å…¥åˆ·å±æ¶ˆæ¯æ•°é‡ï¼Œå¡«å†™-1ä»£è¡¨æ— é™å¾ªçŽ¯\n");
+    printf("æ³¨æ„ï¼Œè¯·å…ˆå°†å¾®ä¿¡çª—å£è°ƒå‡ºæ¥å†å°†å…¶çª—å£æœ€å°åŒ–å†ä½¿ç”¨\n");
     scanf_s("%d", &MesageNum);
-    num = MesageNum;
+    num = MesageNum; //æˆ‘ä¹Ÿä¸çŸ¥é“ä¸ºä»€ä¹ˆæˆ‘è¦å†™ä¸¤ä¸ªå˜é‡
 
-    //ÅÐ¶ÏÑ­»··½Ê½
+    //åˆ¤æ–­å¾ªçŽ¯æ–¹å¼
     if (MesageNum != -1 && MesageNum > 0)
     {
-        //×¼±¸
-        //ÒÆ¶¯¹â±ê
+        //å‡†å¤‡
+        //ç§»åŠ¨å…‰æ ‡
         SetCursorPos(RectWechat.left + 420, RectWechat.top + 430);
-        //Ä£ÄâÊó±êµã»÷
+        //æ¨¡æ‹Ÿé¼ æ ‡ç‚¹å‡»
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 
-        //´ÎÊýÑ­»·
+        //æ¬¡æ•°å¾ªçŽ¯
         for (int i = 0; i < num; i++) 
         {
             BombStart();
@@ -65,4 +50,21 @@ int main() {
             BombStart();
         }
     }
+}
+
+void BombStart() {
+    //ç²˜è´´æ–‡æœ¬
+    keybd_event(VK_CONTROL, 0, 0, 0);
+    keybd_event('V', 0, 0, 0);
+
+    keybd_event('V', 0, KEYEVENTF_KEYUP, 0);
+    keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
+
+    Sleep(100);//ç­‰å¾…0.1ç§’
+
+    //å›žè½¦å‘é€
+    keybd_event(VK_RETURN, 0, 0, 0);
+    keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
+
+    Sleep(100);//ç­‰å¾…0.1ç§’
 }
